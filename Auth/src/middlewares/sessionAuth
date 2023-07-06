@@ -1,0 +1,17 @@
+function sessionAuth(req,res,next){
+const authorized = req.session?.authorized;
+
+if(req.session && authorized){
+    //session is now valid
+    console.log(req.session.user);
+    next();//continue to the next middleware
+}else{
+    res.status(401).json({
+        message: 'Unauthorized'
+    })
+
+
+
+}
+}
+module.exports = {sessionAuth};
