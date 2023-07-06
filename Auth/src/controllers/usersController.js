@@ -63,7 +63,7 @@ async function createUser(req, res) {
   if (sql.connected) {
     let results = await sql
       .request()
-      .input("Username", user.username)
+      .input("username", user.user_name)
       .input("Email", user.email)
       .input("Password", hashed_Pwd)
       .input("ProfilePicUrl", user.profile_pic_url)
@@ -81,37 +81,44 @@ async function createUser(req, res) {
 }
 
 async function userLogin(req, res) {
-  const { username, password } = req.body;
+  const { user_name, password } = req.body;
   let sql = await mssql.connect(config);
+
   if (sql.connected) {
     try {
       let result = await sql.query(
-        `SELECT user_name,password FROM media.users WHERE user_name = '${username}'`
+        `SELECT user_name, password FROM media.users WHERE user_name = '${user_name}'`
       );
+        console.log(req.body);
       let user = result.recordset[0];
+      console.log(result.recordset );
+
       if (user) {
         let passwords_match = await bcrypt.compare(password, user.password);
         if (passwords_match) {
           req.session.authorized = true;
           req.session.user = user;
           console.log(req.session);
-          res.json({
-            success: true,
-            message: " logged in successfully",
-            
-          });
+          
+            res.json({
+              success: true,
+              message: " logged in successfully",
+              user: user[0],
+            });
+          } else {
+            res.status(404).json({
+              success: false,
+              message: "User not found",
+            });
+          }
         } else {
           res.status(401).json({
             success: false,
             message: "Invalid credentials",
           });
         }
-      } else {
-        res.status(401).json({
-          success: false,
-          message: "Invalid credentials",
-        });
-      }
+
+       
 
     } catch (error) {
       console.log(error);
@@ -124,9 +131,6 @@ async function userLogin(req, res) {
 
   }
 }
-
-
-
 
 
 
