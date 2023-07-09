@@ -18,5 +18,11 @@
     "nodemon": "^2.0.22",
     "session": "^0.1.0",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/express-session": "^1.17.7",
+    "@types/mssql": "^8.1.2",
+    "@types/uuid": "^9.0.2"
   }
 }

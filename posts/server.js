@@ -15,7 +15,7 @@ const pool = new sql.ConnectionPool(config);
 async function startApp(){
     try{
     await pool.connect()
-    console.log("connected to db");
+    // console.log("connected to db");
 
     app.use(router);
     app.use(router2);
@@ -27,7 +27,7 @@ catch(err){
 }
 
 app.use((req, res, next)=>{req.pool = pool; next()})
-app.listen(port, () => console.log(`server started on port ${port}!`) );  
+app.listen(port, () => console.log(`server started on port ${port}`) );  
 
 startApp();
 
