@@ -2,6 +2,7 @@ const mssql = require("mssql");
 const config = require("../config/config");
 const bcrypt = require("bcrypt");
 const { newUserValidator } = require("../validators/newUserValidator");
+const { sendMail } = require("../utils/sendMail");
 async function getUsers(req, res) {
   let sql = await mssql.connect(config);
   if (sql.connected) {
@@ -103,6 +104,7 @@ async function createUser(req, res) {
             message: "User created successfully",
             results: createResults.recordset,
           });
+          await sendMail(user);
         }
       } catch (error) {
         console.error("Error creating user:", error);
