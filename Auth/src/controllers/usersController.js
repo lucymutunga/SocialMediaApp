@@ -1,6 +1,7 @@
 const mssql = require("mssql");
 const config = require("../config/config");
 const bcrypt = require("bcrypt");
+const { newUserValidator } = require("../validators/newUserValidator");
 async function getUsers(req, res) {
   let sql = await mssql.connect(config);
   if (sql.connected) {
@@ -56,62 +57,64 @@ async function getUserByUsername(req, res) {
 }
 
 async function createUser(req, res) {
-  let sql = await mssql.connect(config);
   let user = req.body;
+  try {
+    let { value } = await newUserValidator(user);
 
-  let hashed_Password = await bcrypt.hash(user.password, 8);
-
-  if (sql.connected) {
-    try {
-      // Check if the user already exists
-      let checkQuery = `
-        SELECT user_id
-        FROM media.users
-        WHERE user_name = @username OR email = @Email;
-      `;
-      let checkResults = await sql
-        .request()
-        .input("username", user.user_name)
-        .input("Email", user.email)
-        .query(checkQuery);
-
-      if (checkResults.recordset.length > 0) {
-        res.json({
-          success: false,
-          message: "User already exists",
-        });
-      } else {
-        // Create the new user
-        let createQuery = `
-          INSERT INTO media.users (user_name, email, password, profile_pic_url, bio, country)
-          VALUES (@username, @Email, @password, @ProfilePicUrl, @Bio, @Country);
+    let hashed_Password = await bcrypt.hash(user.password, 8);
+    let sql = await mssql.connect(config);
+    if (sql.connected) {
+      try {
+        // Check if the user already exists
+        let checkQuery = `
+          SELECT user_id
+          FROM media.users
+          WHERE user_name = @username OR email = @Email;
         `;
-        let createResults = await sql
+        let checkResults = await sql
           .request()
-          .input("username", user.user_name)
-          .input("Email", user.email)
-          .input("password", hashed_Password)
-          .input("ProfilePicUrl", user.profile_pic_url)
-          .input("Bio", user.bio)
-          .input("Country", user.country)
-          .query(createQuery);
+          .input("username", value.user_name)
+          .input("Email", value.email)
+          .query(checkQuery);
 
-        res.json({
-          success: true,
-          message: "User created successfully",
-          results: createResults.recordset,
+        if (checkResults.recordset.length > 0) {
+          res.json({
+            success: false,
+            message: "User already exists",
+          });
+        } else {
+          // Create the new user
+          let createQuery = `
+            INSERT INTO media.users (user_name, email, password, profile_pic_url, bio, country)
+            VALUES (@username, @Email, @password, @ProfilePicUrl, @Bio, @Country);
+          `;
+          let createResults = await sql
+            .request()
+            .input("username", value.user_name)
+            .input("Email", value.email)
+            .input("password", hashed_Password)
+            .input("ProfilePicUrl", user.profile_pic_url)
+            .input("Bio", user.bio)
+            .input("Country", user.country)
+            .query(createQuery);
+
+          res.json({
+            success: true,
+            message: "User created successfully",
+            results: createResults.recordset,
+          });
+        }
+      } catch (error) {
+        console.error("Error creating user:", error);
+        res.status(500).json({
+          success: false,
+          message: "Internal server error",
+          error: error.message,
         });
       }
-    } catch (error) {
-      console.error("Error creating user:", error);
-      res.status(500).json({
-        success: false,
-        message: "Internal server error",
-        error: error.message,
-      });
     }
-  } else {
-    res.status(500).send("Internal server error");
+  } catch (error) {
+    res.send(error.message);
   }
 }
 
@@ -131,14 +134,27 @@ async function userLogin(req, res) {
       if (user) {
         let passwords_match = await bcrypt.compare(password, user.password);
         if (passwords_match) {
-          req.session.authorized = true;
-          req.session.user = user;
-          console.log(req.session);
+          req.session.regenerate((err) => {
+            if (err) {
+              console.error("Error regenerating session:", err);
+              res.status(500).json({
+                success: false,
+                message: "Internal server error",
+                error: err.message,
+              });
+            } else {
+              req.session.authorized = true;
+              req.session.user = user;
+              req.session.cookie.expires = Date.now() + 1000 * 60 * 30; // 30 minutes
 
-          res.json({
-            success: true,
-            message: " logged in successfully",
-            user: user[0],
+              console.log(req.session);
+
+              res.json({
+                success: true,
+                message: "Logged in successfully",
+                user: user[0],
+              });
+            }
           });
         } else {
           res.status(404).json({
@@ -156,7 +172,7 @@ async function userLogin(req, res) {
       console.log(error);
       res.status(500).json({
         success: false,
-        message: "internal server error",
+        message: "Internal server error",
         error: error.message,
       });
     }

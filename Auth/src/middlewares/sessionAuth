@@ -1,26 +1,3 @@
-// function sessionAuth(req, res, next) {
-//   const authorized = req.session?.authorized;
-
-//   if (req.session && authorized) {
-//     // Session is valid, continue to the next middleware
-//     console.log(req.session.user);
-//     next();
-//   } else {
-//     // Session is not valid or does not exist
-//     if (req.url === "/login" && req.method === "POST") {
-//       // Allow login request to proceed to the route handler
-//       next();
-//     } else {
-//       // Session has expired, send session expired message
-//       const sessionExpiredMessage = "Your session has expired";
-//       res.status(401).json({
-//         message: sessionExpiredMessage,
-//       });
-//     }
-//   }
-// }
-
-// module.exports = { sessionAuth };
 function sessionAuth(req, res, next) {
   const authorized = req.session?.authorized;
 

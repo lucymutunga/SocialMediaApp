@@ -7,7 +7,7 @@ const sessionTimeout = (req, res, next) => {
     userLogout(req, res);
   } else if (req.session.user) {
     // Update session expiration time for authenticated users
-    req.session.cookie.expires = Date.now() + 1000 * 30; // 30 seconds
+    req.session.cookie.expires = Date.now() + 1000 * 60 * 30; // 30 minutes
   }
 
   next();

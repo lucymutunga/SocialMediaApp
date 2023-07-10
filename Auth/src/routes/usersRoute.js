@@ -16,7 +16,7 @@ router.get("/users", getUsers);
 router.get("/users/:user_id", getUserById);
 router.get("/name/:username", getUserByUsername);
 router.post("/create", createUser);
-router.post("/login", sessionAuth, userLogin);
+router.post("/login", userLogin);
 router.post("/logout", sessionAuth, userLogout);
 router.delete("/delete/:user_id", deleteUserAccount);
 
