@@ -145,20 +145,12 @@ async function userLogin(req, res) {
             user: user[0],
           });
         }
-        // });
       } else {
         res.status(404).json({
           success: false,
           message: "User not found",
         });
       }
-      // }
-      // else {
-      //   res.status(401).json({
-      //     success: false,
-      //     message: "Invalid credentials",
-      //   });
-      // }
     } catch (error) {
       console.log(error);
       res.status(500).json({
