@@ -127,7 +127,7 @@ async function userLogin(req, res) {
   if (sql.connected) {
     try {
       let result = await sql.query(
-        `SELECT user_name, password FROM media.users WHERE user_name = '${user_name}'`
+        `SELECT * From media.users WHERE user_name = '${user_name}'`
       );
       console.log(req.body);
       let user = result.recordset[0];
@@ -136,40 +136,29 @@ async function userLogin(req, res) {
       if (user) {
         let passwords_match = await bcrypt.compare(password, user.password);
         if (passwords_match) {
-          req.session.regenerate((err) => {
-            if (err) {
-              console.error("Error regenerating session:", err);
-              res.status(500).json({
-                success: false,
-                message: "Internal server error",
-                error: err.message,
-              });
-            } else {
-              req.session.authorized = true;
-              req.session.user = user;
-              req.session.cookie.expires = Date.now() + 1000 * 60 * 30; // 30 minutes
+          req.session.authorized = true;
+          req.session.user = user;
 
-              console.log(req.session);
-
-              res.json({
-                success: true,
-                message: "Logged in successfully",
-                user: user[0],
-              });
-            }
-          });
-        } else {
-          res.status(404).json({
-            success: false,
-            message: "User not found",
+          res.json({
+            success: true,
+            message: "Logged in successfully",
+            user: user[0],
           });
         }
+        // });
       } else {
-        res.status(401).json({
+        res.status(404).json({
           success: false,
-          message: "Invalid credentials",
+          message: "User not found",
         });
       }
+      // }
+      // else {
+      //   res.status(401).json({
+      //     success: false,
+      //     message: "Invalid credentials",
+      //   });
+      // }
     } catch (error) {
       console.log(error);
       res.status(500).json({
