@@ -1,26 +1,54 @@
 import React, { useState, createContext } from "react";
 import "./login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import axios from "axios";
 const ThemeContext = createContext();
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [user_name, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState([]);
+  const navigate = useNavigate();
   const [theme, setTheme] = useState("light");
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
+  const handleLogin = async (event) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3030/login",
+        { user_name, password },
+        { withCredentials: true }
+      );
+      console.log(response);
+      if (response.status === 200) {
+        navigate("/home");
+      } else {
+        setErrorMessage(["Invalid Credentuals"]);
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setErrorMessage([error.response.data.message]);
+      } else {
+        setErrorMessage(["Error login in"]);
+      }
+    }
+  };
 
   const handleEmpty = (e) => {
     e.preventDefault();
-    if (!username || !password) {
-      setErrorMessage("Please fill in all the fields");
-    } else {
-      setErrorMessage("");
-      alert("Form submitted successfully");
+    if (!user_name || !password) {
+      setErrorMessage(["Please fill in all the fields"]);
     }
+    // else {
+    //   setErrorMessage("");
+    //   alert("Form submitted successfully");
+    // }
   };
 
   return (
@@ -44,7 +72,7 @@ const Login = () => {
             {errorMessage && <p className="error">{errorMessage}</p>}
             <form onSubmit={handleEmpty}>
               <input
-                value={username}
+                value={user_name}
                 type="text"
                 placeholder="Username*"
                 required
@@ -57,12 +85,32 @@ const Login = () => {
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {errorMessage.length > 0 && (
+                <div className="error-message">
+                  {errorMessage.map((error, index) => (
+                    <p
+                      key={index}
+                      className="error"
+                      style={{ fontsize: "8px", color: "red" }}
+                    >
+                      {error}
+                    </p>
+                  ))}
+                </div>
+              )}
             </form>
-            <Link to="/signup">
-              <button className="btn" onClick={handleEmpty} type="submit">
-                Login
-              </button>
-            </Link>
+            {/* <Link to="/home"> */}
+            <button
+              className="btn"
+              onClick={(e) => {
+                handleLogin(e);
+                handleEmpty(e);
+              }}
+              type="submit"
+            >
+              Login
+            </button>
+            {/* </Link> */}
 
             <p>
               Don't have an account? <Link to="/signup">Sign Up</Link>

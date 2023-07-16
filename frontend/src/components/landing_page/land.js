@@ -1,5 +1,6 @@
 import React from "react";
 import "./land.css";
+import { Link } from "react-router-dom";
 import mainlogo from "../../assets/logo.png";
 import smileyfaces from "../../assets/smiley_faces.jpg";
 import fingers from "../../assets/fingers.jpg";
@@ -16,13 +17,18 @@ const LandingPage = () => {
         <div className="landing_navbar_links">
           <ul>
             <li>Home</li>
+
             <li>Features</li>
             <li>FAQ</li>
           </ul>
         </div>
         <div className="landing_navbar_buttons">
-          <button className="button_signin">Sign In</button>
-          <button className="button_signup">Sign Up</button>
+          <Link to="/login">
+            <button className="button_signin">Sign In</button>
+          </Link>
+          <Link to="/signup">
+            <button className="button_signup">Sign Up</button>
+          </Link>
         </div>
       </div>
       <div className="landing_content">

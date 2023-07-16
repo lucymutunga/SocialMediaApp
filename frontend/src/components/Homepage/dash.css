@@ -1,0 +1,17 @@
+.sidebar-dash {
+  border-right: 1px solid;
+  align-items: centre;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 15vh;
+  background-color: var(--background);
+  width: 30vh;
+  position: absolute;
+  margin-top: 40px;
+  background-color: aliceblue;
+  border-radius: 15px;
+}
+.sidebar-icon-dash {
+  display: flex;
+  gap: 6px;
+}

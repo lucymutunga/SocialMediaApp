@@ -1,0 +1,154 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.following-container {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 40px;
+}
+.following-container h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-left: 20px;
+  font-style: italic;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+/*Header*/
+.following-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.names h1 {
+  font-size: 20px;
+}
+.names h6 {
+  font-style: italic;
+}
+/*Search Icon*/
+.following-header > *:first-child {
+  color: black;
+}
+/*Search Heading*/
+.following-header > h1 {
+  margin: 0;
+  font-size: 20px;
+}
+/*Following*/
+.following {
+  display: flex;
+  flex-direction: flex-start;
+  align-items: center;
+  padding: 10px;
+}
+/*Following Image*/
+.following-image {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.following-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/*Following Username*/
+.following-user-name {
+  margin: 0;
+}
+/*Following Name*/
+/* .following-name {
+  font-size: 14px;
+  color: gray;
+} */
+/*Following Button*/
+.btn.following {
+  background-color: #0095f6;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-unfollow {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 100px;
+}
+.btn.following:hover {
+  background-color: green;
+  color: white;
+}
+.btn-unfollow:hover {
+  background-color: red;
+  color: white;
+}
+.following base:active {
+  background-color: #0095f6;
+  color: white;
+}
+.Following Button:focus {
+  background-color: #0095f6;
+  color: white;
+}
+.following button:visited {
+  background-color: #0095f6;
+  color: white;
+}
+.following button:link {
+  background-color: #0095f6;
+  color: white;
+}
+.following button:disabled {
+  background-color: #0095f6;
+  color: white;
+}
+.Following button:default {
+  background-color: #0095f6;
+  color: white;
+}
+.following-stats {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.following-stat {
+  display: flex;
+
+  align-items: center;
+  margin-right: 10px;
+}
+.followers-stat .following {
+  margin-left: 5px;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.btn.search {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 80px;
+  margin-top: 30px;
+  margin-right: 100px;
+  width: 700px;
+  padding: 10px;
+}

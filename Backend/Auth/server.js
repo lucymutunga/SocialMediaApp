@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
+const cors = require("cors");
 // const { sessionTimeout } = require("./src/middlewares/sessionTimeout");
 const { createClient } = require("redis");
 const RedisStore = require("connect-redis").default;
@@ -9,6 +10,12 @@ const router = require("./src/routes/usersRoute");
 const { v4 } = require("uuid");
 const app = express();
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 const redis_Client = createClient();
 redis_Client.connect();

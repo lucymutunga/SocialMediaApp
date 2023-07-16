@@ -1,0 +1,138 @@
+/* Container */
+.followers-container {
+  width: 100%;
+  margin: 0 auto;
+  margin-left: 20px;
+}
+
+.followers-container h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-left: 20px;
+  font-style: italic;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+/* Header */
+.followers-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.names h1 {
+  font-size: 20px;
+}
+.names h6 {
+  font-style: italic;
+}
+
+/* Search Icon */
+.followers-header > *:first-child {
+  color: black;
+}
+
+/* Search Heading */
+.followers-header > h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+/* Followers */
+.followers {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+/* Follower Image */
+.followers-image {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.followers-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Follower Username */
+.followers-user-name {
+  margin: 0;
+}
+
+/* Follower Name */
+.follower-name {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Followers Stats */
+.followers-stats {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Follower Stat */
+.followers-stat {
+  display: flex;
+
+  align-items: center;
+  margin-right: 10px;
+}
+
+/* Dot Icon */
+.followers-stat > *:first-child {
+  color: black;
+}
+
+/* Follow Button */
+.followers-stat .follow {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-left: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn.remove {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-left: 100px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn.remove:hover {
+  background-color: red;
+  color: white;
+}
+.btn.follow:hover {
+  background-color: green;
+  color: white;
+}
+.btn.search {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 80px;
+  margin-top: 30px;
+  margin-right: 100px;
+  width: 700px;
+  padding: 10px;
+}

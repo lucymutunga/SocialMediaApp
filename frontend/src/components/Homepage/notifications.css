@@ -1,0 +1,59 @@
+/* notifications.css */
+
+.notications-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+  margin-top: 40px;
+  border-left: 1 px solid black;
+}
+
+.notifications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.notifications-header h3 {
+  color: blue;
+  margin-top: 12px;
+  margin-left: 40px;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.notification img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.notification h6 {
+  margin-left: 8px;
+  font-size: 10px;
+  font-weight: bold;
+  color: black;
+  width: 100px;
+}
+
+.notification p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.flwback {
+  margin-top: 0;
+  margin-left: 30px;
+  width: 100px;
+  border-radius: 8px;
+  padding: 2px;
+}
+.flwback:hover {
+  color: white;
+  background-color: green;
+}

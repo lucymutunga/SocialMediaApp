@@ -128,3 +128,15 @@ form {
 .btn-e:hover {
   border: 1px solid var(--accent);
 }
+/* login.css */
+
+.error-message {
+  margin-top: 10px;
+}
+
+.error {
+  display: inline;
+  font-size: 12px;
+  color: red;
+  margin: 0;
+}

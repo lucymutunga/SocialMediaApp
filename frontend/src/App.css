@@ -5,3 +5,13 @@
   margin: 0;
   padding: 0;
 }
+:root {
+  --background: gold;
+}
+.home {
+  display: flex;
+}
+.user {
+  display: flex;
+  overflow-x: hidden;
+}
