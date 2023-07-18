@@ -36,21 +36,33 @@ const LandingPage = () => {
           <div className="first_set">
             <div className="landing_content_ushape_wrap">
               <img src={smileyfaces} alt="smileyfaces" />
-              <h1>group of smiley faces</h1>
+              <h1>
+                Immerse Yourself in <br />
+                Vibrant Social Connections
+              </h1>
             </div>
             <div className="landing_content_ushape_wrap">
               <img src={fingers} alt="fingers" />
-              <h1>fingers of unity</h1>
+              <h1>
+                Ignite Your Social <br />
+                Experience
+              </h1>
             </div>
           </div>
           <div className="second_set">
             <div className="landing_content_ushape_wrap">
               <img src={selfie} alt="selfie" />
-              <h1>A group selfie</h1>
+              <h1>
+                Experience the Thrill <br />
+                of Shared Moments
+              </h1>
             </div>
             <div className="landing_content_ushape_wrap">
               <img src={headphones} alt="headphones" />
-              <h1>girl listening to music</h1>
+              <h1>
+                Unleash Your Inner <br />
+                Happiness
+              </h1>
             </div>
           </div>
         </div>

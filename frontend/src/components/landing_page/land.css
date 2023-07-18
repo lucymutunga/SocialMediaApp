@@ -10,10 +10,18 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-
+@keyframes sliding {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(10%);
+  }
+}
 .landing_navbar_logo img {
   height: 100px;
   width: auto;
+  animation: sliding 3s linear infinite;
 }
 .landing_navbar_links {
   width: 700px;
@@ -29,17 +37,29 @@ body {
 .landing_navbar_links ul li {
   margin-left: 40px;
   display: flex;
-
+  font-weight: bold;
   justify-content: space-between;
   font-size: 40px;
+}
+.landing_navbar_links li:hover {
+  background-color: burlywood;
+  color: rgb(27, 25, 25);
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: lighter;
 }
 
 .landing_navbar_buttons button {
   margin-right: 30px;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 9px;
   border: none;
-  background-color: #f1f1f1;
+  background-color: burlywood;
+  cursor: pointer;
+  font-weight: bold;
+}
+.landing_navbar_buttons button:hover {
+  background-color: white;
   cursor: pointer;
 }
 
@@ -72,6 +92,7 @@ body {
   width: 300px;
   height: 300px;
   margin: 20px;
+  border-radius: 10px;
 }
 
 .landing_content_ushape h1 {
@@ -80,4 +101,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  font-weight: lighter;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }

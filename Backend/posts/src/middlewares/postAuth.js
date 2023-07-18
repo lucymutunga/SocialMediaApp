@@ -5,17 +5,13 @@ async function postAuth(req, res, next) {
   redis_Client.on("connect", () => console.log("Redis connected"));
   const cookie = req.headers["cookie"];
   if (cookie) {
-    console.log(cookie);
     let sessionID = cookie.substring(16, 52);
     let session = await redis_Client.get(sessionID);
     let currentsession = JSON.parse(session);
-    console.log(currentsession);
     const authorized = currentsession?.authorized;
-    console.log(authorized);
     if (currentsession && authorized) {
       const usersession = currentsession.user;
       req.session = usersession;
-      console.log(req.session);
       next();
     } else {
       res.status(401).json({
@@ -24,5 +20,17 @@ async function postAuth(req, res, next) {
     }
   }
 }
+//Middleware to check session authentication
+// function requireAuthentication(req, res, next) {
+//   if (req.session && req.session.user_id) {
+//     // User is authenticatedn
+//     next();
+//   } else {
+//     res.status(401).json({
+//       success: false,
+//       message: "Unauthorized. Please log in.",
+//     });
+//   }
+// }
 
 module.exports = { postAuth };

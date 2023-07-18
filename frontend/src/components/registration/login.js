@@ -45,29 +45,25 @@ const Login = () => {
     if (!user_name || !password) {
       setErrorMessage(["Please fill in all the fields"]);
     }
-    // else {
-    //   setErrorMessage("");
-    //   alert("Form submitted successfully");
-    // }
   };
 
   return (
     <ThemeContext.Provider value={theme}>
       <div className={`login ${theme}`}>
-        <div className="hero">
+        <div className="hero1">
           <div className="left-side">
             <div className="overlay"></div>
-            <h3>
+            <h6>
               Hey youu!Welcome Back. <span>Tujuane </span> gotta be your fav
               spot!
-            </h3>
+            </h6>
             <p>
-              Show us what you got🤩,We love to see it😘.Catch up with your
+              Show us what you gat🤩,We love to see it😘.Catch up with your
               friends as we help you make new ones😊.Positive vibes all the
               way💃
             </p>
           </div>
-          <div className="form-container">
+          <div className="form1-container">
             <h4>Login</h4>
             {errorMessage && <p className="error">{errorMessage}</p>}
             <form onSubmit={handleEmpty}>
@@ -99,7 +95,6 @@ const Login = () => {
                 </div>
               )}
             </form>
-            {/* <Link to="/home"> */}
             <button
               className="btn"
               onClick={(e) => {
@@ -110,7 +105,6 @@ const Login = () => {
             >
               Login
             </button>
-            {/* </Link> */}
 
             <p>
               Don't have an account? <Link to="/signup">Sign Up</Link>

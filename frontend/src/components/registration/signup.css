@@ -32,12 +32,12 @@ body {
   background: rgba(0, 0, 0, 0.4);
 }
 
-.hero {
+.hero2 {
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-.left-side {
+.form2left-side {
   background: url("../../assets/vibe.jpg") no-repeat center center/cover;
   display: flex;
   flex-direction: column;
@@ -45,35 +45,36 @@ body {
   align-items: center;
   position: relative;
 }
-.left-side h3,
-p {
+
+.form2left-side h3 {
+  font-weight: 800;
+  font-size: 36px;
+  color: white;
   z-index: 999;
   width: 50%;
   margin-bottom: 20px;
-  color: Gold;
 }
-.left-side h3 {
-  font-weight: 300;
-  font-size: 36px;
-  color: Gold;
-}
-.left-side p {
+.form2left-side p {
   font-weight: 100;
-  font-size: 14px;
+  font-size: 14;
+  color: white;
+  z-index: 999;
+  width: 50%;
+  margin-bottom: 20px;
 }
 span {
   color: var(--accent);
   font-weight: 700;
 }
-.form-container {
+.form2-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  background-color: maroon;
+  background-color: rgb(202, 181, 46);
 }
-.form-container h4 {
+.form2-container h4 {
   margin-bottom: 40px;
   font-size: 36px;
   font-weight: 300;
@@ -86,7 +87,7 @@ form {
   align-items: center;
   color: var(--accent);
 }
-.form-container input {
+.form2-container input {
   padding: 6px 12px;
   border-radius: 6px;
   width: 350px;
@@ -97,10 +98,10 @@ form {
   background-color: var(--background);
   transition: 0.5s ease;
 }
-.form-container input:hover {
+.form2-container input:hover {
   border: 1px solid var(--accent);
 }
-.form-container button {
+.form2-container button {
   width: 350px;
   padding: 6px 12px;
   border-radius: 6px;
@@ -112,7 +113,7 @@ form {
   color: var(--text);
   margin-bottom: 20px;
 }
-.form-container button:hover {
+.form2-container button:hover {
   cursor: pointer;
 }
 .error {

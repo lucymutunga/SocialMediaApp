@@ -138,7 +138,7 @@ async function userLogin(req, res) {
         if (passwords_match) {
           req.session.authorized = true;
           req.session.user = user;
-
+          req.session.user_id = user.user_id;
           res.json({
             success: true,
             message: "Logged in successfully",
