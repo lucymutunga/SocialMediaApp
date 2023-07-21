@@ -6,6 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import { BsPostageHeart } from "react-icons/bs";
 import { IoNotifications } from "react-icons/io5";
 import { MdSettings } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
@@ -20,7 +21,9 @@ const Sidebar = () => {
         </div>
         <div className="sidebar-icon">
           <CgProfile />
-          <h1>Profile</h1>
+          <Link to="/user">
+            <h1>Profile</h1>
+          </Link>
         </div>
         <div className="sidebar-icon">
           <BsPostageHeart />

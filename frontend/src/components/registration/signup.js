@@ -2,6 +2,7 @@ import React, { useState, createContext } from "react";
 import "./signup.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Login from "./login";
 
 // import { useNavigate } from "react-router-dom";
 const ThemeContext = createContext();
@@ -10,43 +11,47 @@ const Signup = () => {
   const [name, setName] = useState(""); // [state, setState
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [c_password, setConfirmPassword] = useState("");
+
   const [bio, setBio] = useState(""); // [state, setState
   const [country, setCountry] = useState("");
+  const [signedUp, setSignedUp] = useState(false); // [state, setState
   const navigate = useNavigate();
   const [theme, setTheme] = useState("light");
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
-  const handleSignup = async (event) => {
+  const Register = {
+    user_name: name,
+    email: email,
+    password: password,
+    c_password: c_password,
+    profile_pic_url: null,
+    bio: bio,
+    country: country,
+  };
+  const handleSignup = async () => {
     try {
       const response = await axios.post(
         "http://localhost:3030/create",
-        { name, email, password, confirmPassword, bio, country, theme },
-        { withCredentials: true }
+        Register,
+        {}
       );
       console.log(response);
-      if (response.status === 200) {
+      if (response.data.success === true) {
+        setSignedUp(true);
         navigate("/login");
       } else {
-        setErrorMessage(["Invalid Credentials"]);
+        console.error("Error while signing up");
       }
     } catch (error) {
-      if (error.response && error.respose.data && error.response.data.message) {
-        setErrorMessage([error.response.data.message]);
-      } else {
-        setErrorMessage(["Error login in"]);
-      }
+      console.error("Error while signing up:", error.response.data);
     }
   };
 
-  const handleEmpty = (e) => {
-    e.preventDefault();
-    if (!email || !password) {
-      setErrorMessage(["Please fill in all the fields"]);
-    }
-  };
+  if (signedUp) {
+    return <Login />;
+  }
 
   return (
     <ThemeContext.Provider value={theme}>
@@ -59,8 +64,8 @@ const Signup = () => {
           </div>
           <div className="form2-container">
             <h4>Sign Up</h4>
-            {errorMessage && <p className="error">{errorMessage}</p>}
-            <form onSubmit={handleEmpty}>
+
+            <form>
               <input
                 value={name}
                 type="text"
@@ -70,7 +75,7 @@ const Signup = () => {
               />
               <input
                 value={email}
-                type="text"
+                type="email"
                 placeholder="Email*"
                 required
                 onChange={(e) => setEmail(e.target.value)}
@@ -83,7 +88,7 @@ const Signup = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <input
-                value={confirmPassword}
+                value={c_password}
                 type="password"
                 placeholder="Confirm your password*"
                 required
@@ -103,17 +108,9 @@ const Signup = () => {
                 onChange={(e) => setCountry(e.target.value)}
               />
             </form>
-            <Link to="/login">
-              <button
-                className="btn"
-                onClick={(e) => {
-                  handleSignup(e);
-                }}
-                type="submit"
-              >
-                Signup
-              </button>
-            </Link>
+            <button className="btn" type="button" onClick={handleSignup}>
+              Signup
+            </button>
             <p>
               Already have an account? <Link to="/login">Sign in</Link>
             </p>

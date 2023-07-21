@@ -3,32 +3,37 @@ import axios from "axios";
 import { FcLike } from "react-icons/fc";
 import { BiMessageRounded } from "react-icons/bi";
 import { ImForward } from "react-icons/im";
-import "./feed.css";
+import "./followingPosts.css";
 import PostModal from "./hidepostsModal";
+import { Link } from "react-router-dom";
 
-const Feed = () => {
-  const [posts, setPosts] = useState([]);
+const FollowingPosts = () => {
+  const [followingPosts, setFollowingPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedPost, setSelectedPost] = useState(null);
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get("http://localhost:3333/posts", {
-          withCredentials: true,
-        });
 
-        setPosts(response.data.results);
+  useEffect(() => {
+    const fetchFollowingPosts = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3333/posts/following",
+          {
+            withCredentials: true,
+          }
+        );
+
+        setFollowingPosts(response.data.results);
         setLoading(false); // Set loading to false once data is fetched successfully
 
         console.log(response.data.results);
       } catch (error) {
-        setError("Error fetching posts"); // Set error message if there's an error fetching posts
+        setError("Error fetching following posts"); // Set error message if there's an error fetching posts
         setLoading(false); // Set loading to false in case of an error
       }
     };
 
-    fetchPosts();
+    fetchFollowingPosts();
   }, []);
 
   if (loading) {
@@ -46,13 +51,15 @@ const Feed = () => {
   return (
     <div className="feed_container">
       <div className="feed_header">
-        <h1>Posts</h1>
-        <button className="btn btn-primary">For You</button>
+        <h1>Following Posts</h1>
+        <Link to="/home">
+          <button className="btn btn-primary">Home</button>
+        </Link>
       </div>
 
       <div className="feeds">
-        {posts && posts.length > 0 ? (
-          posts.map((post) => (
+        {followingPosts && followingPosts.length > 0 ? (
+          followingPosts.map((post) => (
             <div
               className={`feed ${selectedPost === post ? "selected-post" : ""}`}
               key={post.post_id}
@@ -76,7 +83,7 @@ const Feed = () => {
             </div>
           ))
         ) : (
-          <div>No posts to display</div>
+          <div>No following posts to display</div>
         )}
       </div>
       {selectedPost && (
@@ -86,4 +93,4 @@ const Feed = () => {
   );
 };
 
-export default Feed;
+export default FollowingPosts;

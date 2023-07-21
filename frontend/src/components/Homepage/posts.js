@@ -2,11 +2,11 @@ import React from "react";
 import { FcLike } from "react-icons/fc";
 import { BiMessageRounded } from "react-icons/bi";
 import { ImForward } from "react-icons/im";
-
-import "./posts.css";
 import { useState, useEffect } from "react";
 import { Image } from "cloudinary-react";
 import axios from "axios";
+
+import "./posts.css";
 
 const Posts = () => {
   const [content, setContent] = useState("");

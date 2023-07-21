@@ -105,3 +105,25 @@ body {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
+/* landing theme changer */
+.theme-gold {
+  background-color: gold;
+}
+.theme-lavender {
+  background-color: lavender;
+}
+.theme-green {
+  background-color: #97c977;
+}
+.theme-violet {
+  background-color: #755176;
+}
+.theme-orange {
+  background-color: orange;
+}
+.theme-blue {
+  background-color: #777a7e;
+}
+.theme-pink {
+  background-color: pink;
+}

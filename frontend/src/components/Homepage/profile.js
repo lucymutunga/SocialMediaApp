@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./profile.css";
-import profile from "../../assets/profile.jpg";
+
 import mainlogo from "../../assets/logo.png";
 import { HiUserGroup } from "react-icons/hi";
 import { MdGroup } from "react-icons/md";
@@ -11,10 +12,27 @@ import Dash from "./dash";
 
 const Profile = () => {
   const [homeModal, setHomeModal] = useState(false);
+  const [userProfile, setUserProfile] = useState(null);
 
   const toggleHome = () => {
     setHomeModal((prevState) => !prevState);
   };
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get("http://localhost:3030/profile", {
+          withCredentials: true,
+        });
+
+        setUserProfile(response.data.userProfile);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -49,34 +67,41 @@ const Profile = () => {
           <h1>Tujuane</h1>
         </div>
         <div className="profile">
-          <div className="profile-image">
-            <img src={profile} alt="profile" />
-          </div>
-          <h8 className="user-name">Janedoe_</h8>
-          <div className="profile-stats">
-            <div className="profile-stat">
-              <div className="followers">
-                <HiUserGroup />
-                <h2>Followers</h2>
-                <h5>20</h5>
+          {userProfile && (
+            <>
+              <div className="profile-image">
+                <img src={userProfile.profile_pic_url} alt="profile" />
               </div>
 
-              <div className="followers">
-                <MdGroup />
-                <Link to="/following">
-                  <h2>Following</h2>
-                </Link>
-                <h5>80</h5>
+              <h6 className="user-name">{userProfile.user_name}</h6>
+              <div className="profile-stats">
+                <div className="profile-stat">
+                  <div className="followers">
+                    <HiUserGroup />
+                    <h2>Followers</h2>
+                    <h5>{userProfile.followers}</h5>
+                  </div>
+
+                  <div className="followers">
+                    <MdGroup />
+                    <Link to="/follows">
+                      <h2>Following</h2>
+                    </Link>
+                    <h5>{userProfile.following}</h5>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="profile-bio">
-            <h4>Helllo. I'm lucy de alcy. And I love Githeri()</h4>
-          </div>
-          <div className="profile-user-settings">
-            <AiFillEdit />
-            <button className="btn profile-edit-btn">Edit Profile</button>
-          </div>
+              <div className="profile-bio">
+                <h4>{userProfile.bio}</h4>
+              </div>
+              <div className="profile-user-settings">
+                <AiFillEdit />
+                <Link to="/updateUser" className="btn profile-edit-btn">
+                  Edit Profile
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </div>
       {homeModal && <Dash />}

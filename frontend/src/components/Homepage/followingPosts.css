@@ -1,0 +1,63 @@
+/* FollowingPosts.css */
+.feed_container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.feed_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.feed_header h1 {
+  font-size: 24px;
+}
+
+.feeds {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.feed {
+  position: relative;
+  cursor: pointer;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.feed_img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* .icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  background-color: #fff;
+  padding: 5px 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+} */
+
+.feed-icon1 {
+  display: flex;
+  align-items: center;
+}
+
+.feed-icon1 p {
+  margin-left: 5px;
+}
+
+.selected-post {
+  border: 2px solid #007bff; /* Add your preferred selected post border style */
+}

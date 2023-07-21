@@ -107,6 +107,40 @@ async function getPostsByUserId(req, res) {
   }
 }
 
+//  get posts from users whom the current user follows
+async function getPostsFromFollowing(req, res) {
+  const user_id = req.session?.user_id; // Update this to get the current user's ID
+
+  try {
+    const sql = await mssql.connect(config);
+    const results = await sql
+      .request()
+      .input("user_id", mssql.Int, user_id) // Update the input parameter type to match your user_id data type
+      .execute("media.GetFollowersPosts"); // Use the new stored procedure name
+
+    const posts = results.recordsets[0];
+    if (posts.length > 0) {
+      res.json({
+        success: true,
+        message: "Posts retrieved successfully",
+        results: posts,
+      });
+    } else {
+      res.json({
+        success: false,
+        message: "Posts do not exist",
+      });
+    }
+  } catch (error) {
+    console.error("Error retrieving posts from following:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve posts from following",
+      error: error.message,
+    });
+  }
+}
+
 //delete post
 
 async function deletePost(req, res) {
@@ -139,4 +173,5 @@ module.exports = {
   getPostById,
   getPostsByUserId,
   deletePost,
+  getPostsFromFollowing,
 };

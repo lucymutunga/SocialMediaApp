@@ -15,3 +15,7 @@
   display: flex;
   overflow-x: hidden;
 }
+.follows {
+  display: flex;
+  overflow-x: hidden;
+}

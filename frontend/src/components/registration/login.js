@@ -8,13 +8,14 @@ const ThemeContext = createContext();
 const Login = () => {
   const [user_name, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const [theme, setTheme] = useState("light");
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
-  const handleLogin = async (event) => {
+
+  const handleLogin = async () => {
     try {
       const response = await axios.post(
         "http://localhost:3030/login",
@@ -24,18 +25,22 @@ const Login = () => {
       console.log(response);
       if (response.status === 200) {
         navigate("/home");
-      } else {
-        setErrorMessage(["Invalid Credentuals"]);
       }
     } catch (error) {
+      console.log(error);
       if (
         error.response &&
         error.response.data &&
         error.response.data.message
       ) {
-        setErrorMessage([error.response.data.message]);
+        const errorMessage = error.response.data.message;
+        setErrorMessage(errorMessage);
+      } else if (error.response && error.response.status === 401) {
+        // 401 Unauthorized: Invalid credentials
+        setErrorMessage("Invalid username or password");
       } else {
-        setErrorMessage(["Error login in"]);
+        // Other server errors
+        setErrorMessage("Error logging in");
       }
     }
   };
@@ -43,7 +48,7 @@ const Login = () => {
   const handleEmpty = (e) => {
     e.preventDefault();
     if (!user_name || !password) {
-      setErrorMessage(["Please fill in all the fields"]);
+      setErrorMessage("Please fill in all the fields");
     }
   };
 
@@ -81,17 +86,14 @@ const Login = () => {
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
-              {errorMessage.length > 0 && (
+              {errorMessage && (
                 <div className="error-message">
-                  {errorMessage.map((error, index) => (
-                    <p
-                      key={index}
-                      className="error"
-                      style={{ fontsize: "8px", color: "red" }}
-                    >
-                      {error}
-                    </p>
-                  ))}
+                  <p
+                    className="error"
+                    style={{ fontSize: "8px", color: "red" }}
+                  >
+                    {errorMessage}
+                  </p>
                 </div>
               )}
             </form>
@@ -118,4 +120,5 @@ const Login = () => {
     </ThemeContext.Provider>
   );
 };
+
 export default Login;

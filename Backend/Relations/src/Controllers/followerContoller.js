@@ -1,7 +1,8 @@
 module.exports = {
   createFollower: async (req, res) => {
     try {
-      let { user_id, follower_id } = req.body;
+      let { follower_id } = req.body;
+      let user_id = req.session.user_id;
       let pool = req.pool;
       if (pool.connected) {
         let results = await pool
@@ -32,47 +33,45 @@ module.exports = {
   },
 
   deleteFollower: async (req, res) => {
+    const follower_id = req.session?.user_id;
+    let { user_id } = req.body;
     try {
-      let { follower_id } = req.params;
-      let pool = req.pool;
+      const pool = req.pool;
       if (pool.connected) {
-        let results = await pool
+        let deleteFollower = await pool
           .request()
+          .input("user_id", user_id)
           .input("follower_id", follower_id)
           .execute("media.deleteFollower");
-
-        if (results.rowsAffected[0] > 0) {
-          res.json({
-            success: true,
-            message: "user unfollowed successfully",
-            results: results[0],
-          });
-        } else {
-          res.json({
-            success: false,
-            message: "user already unfollowed",
-          });
-        }
-      } else {
         res.json({
-          success: false,
-          message: "Follower does not exist",
+          success: true,
+          message: deleteFollower.recordsets[0][0].message,
+          data: deleteFollower.recordsets[0],
         });
+      } else {
+        res.status(500).json({ message: "Internal server error" });
       }
     } catch (error) {
-      console.error("Error deleting follower:", error);
-      res.status(500).json({
-        success: false,
-        message: "Internal server error",
-        error: error.message,
-      });
+      console.error("Error:", error);
+      if (error.number === 50002) {
+        res.status(409).json({ error: error.message });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
     }
   },
   getFollowers: async (req, res) => {
     try {
       let pool = req.pool;
+      let user_id = req.session.user_id;
+
       if (pool.connected) {
-        let results = await pool.request().execute("media.getFollowers");
+        let results = await pool
+          .request()
+          .input("user_id", user_id)
+          .execute("media.getFollowers");
+        console.log(results);
+
         res.json({
           success: true,
           message: "Followers retrieved successfully",
@@ -89,6 +88,39 @@ module.exports = {
       res.status(500).json({
         success: false,
         message: "Internal server error",
+        error: error.message,
+      });
+    }
+  },
+  getSuggestions: async (req, res) => {
+    try {
+      const user_id = req.session?.user_id;
+      const pool = req.pool;
+
+      if (pool.connected) {
+        const results = await pool
+          .request()
+          .input("user_id", user_id)
+          .execute("media.GetSuggestions");
+
+        const suggestions = results.recordset;
+
+        res.json({
+          success: true,
+          message: "User suggestions retrieved successfully",
+          results: suggestions,
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: "Internal server error",
+        });
+      }
+    } catch (error) {
+      console.error("Error getting user suggestions:", error);
+      res.status(500).json({
+        success: false,
+        message: "Failed to get user suggestions",
         error: error.message,
       });
     }

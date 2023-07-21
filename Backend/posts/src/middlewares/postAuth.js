@@ -20,17 +20,5 @@ async function postAuth(req, res, next) {
     }
   }
 }
-//Middleware to check session authentication
-// function requireAuthentication(req, res, next) {
-//   if (req.session && req.session.user_id) {
-//     // User is authenticatedn
-//     next();
-//   } else {
-//     res.status(401).json({
-//       success: false,
-//       message: "Unauthorized. Please log in.",
-//     });
-//   }
-// }
 
 module.exports = { postAuth };

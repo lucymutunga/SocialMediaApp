@@ -5,9 +5,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./components/registration/login";
 import Signup from "./components/registration/signup";
 import Home from "./components/Homepage/Home";
-import Followers from "./components/Homepage/followers";
 import Following from "./components/Homepage/following";
 import User from "./components/Homepage/user";
+import Follows from "./components/Homepage/follows";
+import UpdateUser from "./components/Homepage/updateUser";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,16 +28,20 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/followers",
-    element: <Followers />,
+    path: "/follows",
+    element: <Follows />,
+  },
+  {
+    path: "/user",
+    element: <User />,
   },
   {
     path: "/following",
     element: <Following />,
   },
   {
-    path: "/user",
-    element: <User />,
+    path: "/updateUser",
+    element: <UpdateUser />,
   },
 ]);
 

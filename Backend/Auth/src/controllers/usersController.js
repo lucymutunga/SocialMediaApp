@@ -127,14 +127,13 @@ async function userLogin(req, res) {
   if (sql.connected) {
     try {
       let result = await sql.query(
-        `SELECT * From media.users WHERE user_name = '${user_name}'`
+        `SELECT * FROM media.users WHERE user_name = '${user_name}'`
       );
-      console.log(req.body);
       let user = result.recordset[0];
-      console.log(result.recordset);
 
       if (user) {
         let passwords_match = await bcrypt.compare(password, user.password);
+
         if (passwords_match) {
           req.session.authorized = true;
           req.session.user = user;
@@ -142,11 +141,18 @@ async function userLogin(req, res) {
           res.json({
             success: true,
             message: "Logged in successfully",
-            user: user[0],
+            user: user,
+          });
+        } else {
+          // Incorrect password
+          res.status(401).json({
+            success: false,
+            message: "Incorrect password",
           });
         }
       } else {
-        res.status(404).json({
+        // Incorrect username
+        res.status(401).json({
           success: false,
           message: "User not found",
         });
@@ -213,6 +219,81 @@ async function deleteUserAccount(req, res) {
   }
 }
 
+//updating user profile
+
+async function updateUser(req, res) {
+  let user = req.body;
+  let user_id = req.session?.user_id;
+  try {
+    let { value } = await newUserValidator(user);
+
+    let hashedPassword = await bcrypt.hash(user.password, 8);
+    let sql = await mssql.connect(config);
+    if (sql.connected) {
+      try {
+        let updateResults = await sql
+          .request()
+          .input("user_id", user_id)
+          .input("username", value.user_name)
+          .input("email", value.email)
+          .input("password", hashedPassword)
+          .input("bio", user.bio)
+          .input("country", user.country)
+          .input("profile_pic_url", user.profile_pic_url)
+          .execute("media.UpdateUserProfile");
+
+        res.json({
+          success: true,
+          message: "User profile updated successfully",
+          results: updateResults.recordset,
+        });
+      } catch (error) {
+        console.error("Error updating user profile:", error);
+        res.status(500).json({
+          success: false,
+          message: "Internal server error",
+          error: error.message,
+        });
+      }
+    }
+  } catch (error) {
+    res.send(error.message);
+  }
+}
+
+async function getUserProfile(req, res) {
+  const user_id = req.session?.user_id;
+
+  try {
+    const sql = await mssql.connect(config);
+    const results = await sql
+      .request()
+      .input("user_id", user_id)
+      .execute("media.GetUserProfile");
+
+    const userProfile = results.recordset[0];
+    if (userProfile) {
+      res.json({
+        success: true,
+        message: "User profile retrieved successfully",
+        userProfile: userProfile,
+      });
+    } else {
+      res.json({
+        success: false,
+        message: "User profile not found",
+      });
+    }
+  } catch (error) {
+    console.error("Error retrieving user profile:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve user profile",
+      error: error.message,
+    });
+  }
+}
+
 module.exports = {
   getUsers,
   getUserById,
@@ -221,4 +302,6 @@ module.exports = {
   userLogin,
   userLogout,
   deleteUserAccount,
+  updateUser,
+  getUserProfile,
 };

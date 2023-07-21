@@ -4,10 +4,12 @@ const {
   getFollowers,
   deleteFollower,
   getFollowerById,
+  getSuggestions,
 } = require("../Controllers/followerContoller");
 
 router.post("/follower", createFollower);
 router.get("/followers", getFollowers);
 router.get("/follower/:follower_id", getFollowerById);
-router.delete("/follower/:follower_id", deleteFollower);
+router.get("/suggestions", getSuggestions);
+router.delete("/unfollow", deleteFollower);
 module.exports = router;

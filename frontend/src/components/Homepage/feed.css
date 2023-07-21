@@ -2,8 +2,9 @@
   border-radius: 10px solid blue;
   /* border: 2px solid black; */
   box-shadow: 3px 3x 3px 3px black;
-  max-width: 800px;
-  margin-left: 10vw;
+  width: 80vw;
+  height: 100vh;
+  margin-left: 20vw;
   margin-top: 40px;
   border-right: 1px solid black;
 
@@ -14,19 +15,22 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 70%;
-  height: 50%;
+  width: 50%;
+  height: 100%;
   margin-top: 0px;
   margin-right: 200px;
-  margin-left: 140px;
+  margin-left: 50px;
   gap: 3px;
 }
 .feeds {
   display: grid;
-  grid-template-columns: repeat(2, minmax(400px, 1fr));
+  grid-template-columns: repeat(2, 400px, 1fr);
   grid-gap: 0;
+  width: 40vw;
+  margin-left: 200px;
+  margin-right: 150px;
 }
-.feed img {
+.feed_img {
   width: 200px;
   height: 400px;
   border-radius: 10px;
@@ -34,26 +38,33 @@
   margin-top: 10px;
   margin-left: 0;
 }
-.feed-icon {
+.feed-icon1 {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  width: 20px;
 }
 
 .feed_header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 600px;
-  margin-left: 150px;
+  width: 30vw;
+  margin-left: 200px;
 }
-.icons {
+/* .icons {
   align-self: flex-start;
   display: flex;
-  gap: 20px;
+  align-items: center;
   margin-left: 100px;
+  justify-content: space-around;
+} */
+
+.feed-icon1 {
+  color: blue;
 }
 
-.icons p {
-  color: blue;
+/* selecting single post */
+.selected-post {
+  filter: blur(4px); /* Adjust the blur strength as needed */
+  pointer-events: none; /* Prevent interactions with blurred posts */
 }

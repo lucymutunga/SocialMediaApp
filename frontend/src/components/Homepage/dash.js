@@ -4,6 +4,7 @@ import { CgProfile } from "react-icons/cg";
 import { BsPostageHeart } from "react-icons/bs";
 import { IoNotifications } from "react-icons/io5";
 import { MdSettings } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Dash = () => {
   return (
@@ -11,8 +12,9 @@ const Dash = () => {
       <div className="sidebar-stats-dash">
         <div className="sidebar-icon-dash">
           <BiSolidHome />
-
-          <h4>Home</h4>
+          <Link to="/home">
+            <h4>Home</h4>
+          </Link>
         </div>
         <div className="sidebar-icon-dash">
           <CgProfile />

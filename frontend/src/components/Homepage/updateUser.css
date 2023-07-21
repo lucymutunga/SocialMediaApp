@@ -1,0 +1,85 @@
+/* UpdateUser.css */
+
+.update-user-container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.update-user-container h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.update-user-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-user-container form div {
+  margin-bottom: 10px;
+}
+
+.update-user-container form label {
+  font-weight: bold;
+}
+
+.update-user-container form input[type="text"],
+.update-user-container form input[type="email"],
+.update-user-container form input[type="password"],
+.update-user-container form textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.update-user-container form textarea {
+  resize: vertical;
+}
+
+.update-user-container form button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.update-user-container form button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.update-user-container form input[type="file"] {
+  margin-top: 4px;
+}
+
+.form input[type="file"]::-webkit-file-upload-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.update-user-container
+  form
+  input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: #0056b3;
+}
+.form input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  width: 300px;
+}
+.form input label {
+  font-weight: bold;
+  border-radius: 3px;
+}
+.forminput-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
