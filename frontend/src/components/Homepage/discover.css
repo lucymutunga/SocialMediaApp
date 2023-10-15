@@ -1,9 +1,10 @@
 /* Container */
 
 .discover-container {
-  width: 80%;
+  width: 800px;
   margin: 0 auto;
-  margin-left: 5vw;
+  margin-left: 0;
+  margin-right: 200px;
 }
 .discover-container h1 {
   font-size: 20px;
@@ -73,6 +74,7 @@
   display: flex;
   align-items: center;
   margin-top: 10px;
+  width: 30px;
 }
 
 /* Follower Stat */
@@ -81,11 +83,12 @@
   margin-top: 1px;
   align-items: center;
   margin-right: 10px;
+  border-radius: 3px;
 }
 
 /* Follow Button */
 .suggestions-stat .follow {
-  background-color: blue;
+  background-color: rgb(95, 95, 242);
   color: white;
   border: none;
   padding: 5px 10px;
@@ -99,10 +102,10 @@
 }
 
 .btn.follow:hover {
-  background-color: green;
+  background-color: rgb(136, 136, 222);
   color: white;
 }
-.btn.search {
+/* .btn.search {
   display: flex;
   justify-content: space-between;
   border-radius: 80px;
@@ -110,4 +113,55 @@
   margin-right: 100px;
   width: 350px;
   padding: 10px;
+} */
+
+/* Search Bar Container */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+/* Search Icon */
+.search-bar svg {
+  margin-right: 8px;
+  color: #555;
+}
+
+/* Search Input */
+.search-bar input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+  background-color: transparent;
+  width: 100%;
+}
+
+/* Placeholder Color (optional) */
+.search-bar input::placeholder {
+  color: #aaa;
+}
+
+/* Focus State */
+.search-bar input:focus {
+  border: 1px solid #00a2ff;
+}
+
+/* Button (optional) */
+.search-bar button {
+  border: none;
+  outline: none;
+  background-color: #00a2ff;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-bar button:hover {
+  background-color: #0089e0;
 }

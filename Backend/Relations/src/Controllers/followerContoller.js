@@ -1,20 +1,21 @@
 module.exports = {
   createFollower: async (req, res) => {
     try {
-      let { follower_id } = req.body;
-      let user_id = req.session.user_id;
+      let { user_id } = req.body;
+      let userID = req.session.user_id;
       let pool = req.pool;
       if (pool.connected) {
+        console.log(pool.connected);
         let results = await pool
           .request()
           .input("user_id", user_id)
-          .input("follower_id", follower_id)
+          .input("follower_id", userID)
           .execute("media.CreateFollower");
-        const result = results.recordsets[0];
+        // const result = results.recordsets[0];
+        console.log(user_id);
         res.json({
           success: true,
           message: "Follower created successfully",
-          followerId: result[0].follower_id,
         });
       } else {
         res.status(500).json({

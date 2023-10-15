@@ -84,7 +84,7 @@
   cursor: pointer;
 }
 .btn-unfollow {
-  background-color: black;
+  background-color: rgb(63, 63, 63);
   color: white;
   border: none;
   border-radius: 20px;
@@ -94,12 +94,12 @@
   cursor: pointer;
   margin-left: 100px;
 }
-.btn.following:hover {
+/* .btn.following:hover {
   background-color: green;
   color: white;
-}
+} */
 .btn-unfollow:hover {
-  background-color: red;
+  background-color: rgb(126, 124, 124);
   color: white;
 }
 .following base:active {
@@ -149,6 +149,6 @@
   border-radius: 80px;
   margin-top: 30px;
   margin-right: 100px;
-  width: 700px;
+  width: 400px;
   padding: 10px;
 }

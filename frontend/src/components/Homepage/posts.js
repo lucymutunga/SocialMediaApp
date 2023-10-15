@@ -88,6 +88,21 @@ const Posts = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+  const handleDeletePost = async (postId) => {
+    try {
+      // Make an API call to delete the post by post ID
+      await axios.delete(`http://localhost:3333/post/${postId}`, {
+        withCredentials: true,
+      });
+
+      // Update the state to remove the deleted post
+      setItems((prevItems) =>
+        prevItems.filter((item) => item.post_id !== postId)
+      );
+    } catch (error) {
+      console.error("Error while deleting post:", error);
+    }
+  };
 
   return (
     <div className="posts_container">
@@ -159,6 +174,9 @@ const Posts = () => {
                       <ImForward />
                       {/* <p>2</p> */}
                     </div>
+                    <button onClick={() => handleDeletePost(item.post_id)}>
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>

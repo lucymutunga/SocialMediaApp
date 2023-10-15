@@ -1,5 +1,5 @@
 body {
-  background-color: gold;
+  background-color: #f8f9f4;
   height: 100vh;
 }
 
@@ -9,6 +9,7 @@ body {
   height: 10%;
   justify-content: space-between;
   align-items: center;
+  background-color: bisque;
 }
 @keyframes sliding {
   0% {
@@ -37,9 +38,8 @@ body {
 .landing_navbar_links ul li {
   margin-left: 40px;
   display: flex;
-  font-weight: bold;
-  justify-content: space-between;
-  font-size: 40px;
+  font-size: 20px;
+  /* font-weight: bold; */
 }
 .landing_navbar_links li:hover {
   background-color: burlywood;
@@ -59,71 +59,49 @@ body {
   font-weight: bold;
 }
 .landing_navbar_buttons button:hover {
-  background-color: white;
+  background-color: rgb(212, 182, 142);
+
   cursor: pointer;
 }
-
-/* content style */
 .landing_content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 10px;
-}
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: (4, 1fr); /* Create 4 columns with equal width */
+  gap: 2px;
+  overflow: hidden;
 
-.landing_content_ushape {
+  height: 100vh; /* Set the container height to 100% of the viewport height */
+}
+/* content style */
+.image-container {
+  display: flex;
   flex-direction: column;
-  display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  width: 80%;
-}
-
-.first_set {
-  display: flex;
-  justify-content: space-between;
-}
-.second_set {
-  display: flex;
-  justify-content: space-around;
-}
-
-.landing_content_ushape img {
-  width: 300px;
-  height: 300px;
-  margin: 20px;
-  border-radius: 10px;
-}
-
-.landing_content_ushape h1 {
   text-align: center;
-  margin-bottom: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  font-weight: lighter;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  position: relative;
+  margin-bottom: 70px;
+  overflow: hidden;
 }
-/* landing theme changer */
-.theme-gold {
-  background-color: gold;
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3px;
 }
-.theme-lavender {
-  background-color: lavender;
-}
-.theme-green {
-  background-color: #97c977;
-}
-.theme-violet {
-  background-color: #755176;
-}
-.theme-orange {
-  background-color: orange;
-}
-.theme-blue {
-  background-color: #777a7e;
-}
-.theme-pink {
-  background-color: pink;
+
+.image-container h1 {
+  color: #ffffff;
+  font-weight: bolder;
+  font-size: 20px;
+  text-shadow: darkgray 2px 2px;
+  /* background-color: lavender; */
+  padding: 10px;
+  /* border-radius: 3px; */
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
 }
